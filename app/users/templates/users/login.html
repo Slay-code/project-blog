@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static "users/css/login.css" %}">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Авторизация</h1>
+
+        <form action="{% url "users:login" %}">
+            <div class="input-type">
+                <i class="bx bxs-user"></i>
+                <input type="text" placeholder="Имя пользователя">
+            </div>
+
+            <div class="input-pass">
+                <i class="bx bxs-lock-alt"></i>
+                <input type="password" placeholder="Пароль">
+            </div>
+
+            <div class="remember-forgot">
+                <label for="#"><input type="checkbox">Запомнить меня</label>
+                <a href="#">Забыли пароль?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Войти</button>
+
+            <div class="register-link">
+                <p>У вас нет учетной записи?<a href="{% url "users:register" %}">Зарегистрироваться </a></p>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
