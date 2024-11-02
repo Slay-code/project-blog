@@ -1,0 +1,26 @@
+{% extends "mysite/base.html" %}
+{% load mytags %}
+
+
+{% block content %}
+<h3>
+    <form action="{% url "posts:add_post" %}" method="post">
+        {% csrf_token %}
+        {% comment %} <input type="text" placeholder="Название" name="name" id="id_name" required>
+        {% if form.name.errors %}{{ form.name.errors }}{% endif %}
+        <input type="text" placeholder="URL" name="slug" id="id_slug" required>
+        {% if form.slug.errors %}{{ form.slug.errors }}{% endif %}
+        <input type="text" placeholder="Описание" name="description" id="id_description" required>
+        {% if form.description.errors %}{{ form.description.errors }}{% endif %}
+        <select name="category" id="id_category" required>
+            <option value="">Выберите категорию</option>  <!-- Опция по умолчанию -->
+            {% tag_categories as categories%}
+            {% for i in categories %}
+                <option value="{{ i.id }}">{{ i.name }}</option>  <!-- Используй category.pk для value -->
+            {% endfor %}
+        </select> {% endcomment %}
+        {{ form.as_p }}  
+        <button type="submit">Отправить</button>
+    </form>
+</h3>
+{% endblock content %}

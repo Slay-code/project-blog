@@ -13,21 +13,26 @@
     <div class="container">
         <h1>Регистрация</h1>
         <form action="{% url "users:register" %}" method="POST">
+            {% csrf_token %}
             <div class="input-type">
                 <i class='bx bx-user'></i>
-                <input type="text" placeholder="Имя пользователя" name="username" required>
+                <input type="text" placeholder="Имя пользователя" name="username" id="id_username" required>
+                {% if form.username.errors %}{{ form.username.errors }}{% endif %}
             </div>
             <div class="input-type">
                 <i class='bx bx-envelope'></i>
-                <input type="email" placeholder="Email" name="email" required>
+                <input type="email" placeholder="Email" name="email" id="id_email" required>
+                {% if form.email.errors %}{{ form.email.errors }}{% endif %}
             </div>
             <div class="input-pass">
                 <i class='bx bx-lock'></i>
-                <input type="password" placeholder="Пароль" name="password" required>
+                <input type="password" placeholder="Пароль" name="password1" id="id_password1" required>
+                {% if form.password1.errors %}{{ form.password1.errors }}{% endif %}
             </div>
             <div class="input-pass">
                 <i class='bx bx-lock'></i>
-                <input type="password" placeholder="Подтверждение пароля" name="confirm-password" required>
+                <input type="password" placeholder="Подтверждение пароля" name="password2" id="id_password2" required>
+                {% if form.password2.errors %}{{ form.password2.errors }}{% endif %}
             </div>
             <div class="remember-forgot">
                 <a href="#"></a>

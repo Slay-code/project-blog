@@ -1,0 +1,19 @@
+{% extends "mysite/index.html" %}
+
+{% block content %}
+<h2>
+    <form action="{% url "users:profile" %}" method='post'>
+        {% csrf_token %}
+        {% comment %} <input type="text" name='username' id="id_username" placeholder="Имя" value={{ form.username.value }} required>
+        {% if form.username.errors %}{{ form.username.errors }}{% endif %}
+        <input type="text" name='email' id="id_email" placeholder="Почта" value={{ form.email.value }} required>
+        {% if form.email.errors %}{{ form.email.errors }}{% endif %}
+        <div>
+            <label for="id_status">Статус</label><br>
+            <input type="checkbox" name='status', id="id_status" value={{form.status.value}} {% if form.status.value %}checked{% endif %} required>
+        </div> {% endcomment %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-secondary" type='submit'>Сохранить</button>
+    </form>
+</h2>
+{% endblock content %}

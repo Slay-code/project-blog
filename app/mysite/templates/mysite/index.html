@@ -1,0 +1,26 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+
+{% for game in games %}
+<h2>{{ game.name }}</h2><p>Категория - {{ game.category__name }}</p><br>
+{% if game.iamge %}
+<img src="#" alt="#">
+{% endif %}
+<p>{{ game.description }}</p><br>
+
+<p>Автор - {{ game.avtor__username }}</p>
+
+<p>Время публикации: {{ game.time_created }}</p>
+
+<a href="{% url "mysite:game_details" game_slug=game.slug %}"><button class="btn btn-outline-secondary">Подробнее</button></a>
+{% if game.avtor__username == request.user.username %}
+<form action="{% url "posts:del_post" game_id=game.id %}" method='post'>
+    {% csrf_token %}
+    <a href="{% url "posts:del_post" game_id=game.id %}"><button class="btn btn-outline-secondary">Удалить</button></a>
+</form>
+{% endif %}
+<p>-----------------------------------------------</p>
+
+{% endfor %}
+{% endblock content %}

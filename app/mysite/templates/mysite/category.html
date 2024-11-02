@@ -1,0 +1,31 @@
+{% extends "mysite/base.html" %}
+
+{% block content %}
+{% for post in posts %}
+<h2>{{ post.name }}</h2><p>Категория - {{ post.category__name }}</p><br>
+{% if post.iamge %}
+<img src="#" alt="#">
+{% endif %}
+<p>{{ post.description }}</p><br>
+
+{% if request.user.is_authenticated %}
+<p>Автор - {{ post.avtor__username }}</p>
+{% else %}
+<p>Автор - Аноним</p>
+{% endif %}
+
+<p>Время публикации: {{ post.time_created }}</p>
+
+<a href="{% url "mysite:game_details" game_slug=post.slug %}"><button class="btn btn-outline-secondary">Подробнее</button></a>
+{% comment %} <form action="{% url "posts:del_post" %}">
+    {% csrf_token %}
+    <button class="btn btn-outline-secondary">Удалить</button>
+</form> {% endcomment %}
+<p>-----------------------------------------------</p>
+
+{% endfor %}
+{% endblock content %}
+
+{% comment %} {% block content %}
+{% include "mysite/index.html" %}
+{% endblock content %} {% endcomment %}
