@@ -8,15 +8,10 @@
 {% endif %}
 <p>{{ game.description }}</p><br>
 
-{% if request.user.is_authenticated %}
 <p>Автор - {{ game.avtor.username }}</p>
-{% else %}
-<p>Автор - Аноним</p>
-{% endif %}
 
 <p>Время публикации: {{ game.time_created }}</p>
 
-<a href="{% url "mysite:game_details" game_slug=game.slug %}"><button class="btn btn-outline-secondary">Подробнее</button></a>
 {% if game.avtor == request.user %}
 <form action="{% url "posts:del_post" game_id=game.id %}" method='post'>
     {% csrf_token %}

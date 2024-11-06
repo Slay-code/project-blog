@@ -8,4 +8,5 @@ app_name = 'posts'
 urlpatterns = [
     path('add-post/', views.add_post, name='add_post'),
     path('delete-post/<int:game_id>/', views.del_post, name='del_post'),
+    path('my-post/', views.my_posts, name='my_posts'),
 ]

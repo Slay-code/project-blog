@@ -11,8 +11,10 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <a href="{% url "mysite:home" %}" class="home"><h1>{{ title }}</h1></a>
+    <a href="{% url "mysite:home" %}" class="home"><h1>На главную</h1></a>
+    <h2>{{ title }}</h2>
     <a href="{% url "posts:add_post" %}">Добавить пост</a>
+    <a href="{% url "posts:my_posts" %}">мои посты</a>
 
     <details>
         <summary><h2>Категории</h2></summary>
@@ -25,11 +27,11 @@
     </details>
 
     <p class="bt-login">
-        {% if not request.user.is_authenticated %}
-        <a href="{% url "users:login" %}" class='login'>Войти</a>
+        {% if request.user %}
+        <a href="{% url "users:logout" %}" class='login'>Выйти</a>
+        <a href="{% url "users:profile" %}">Профиль</a>
         {% else %}
-            <a href="{% url "users:logout" %}" class='login'>Выйти</a>
-            <a href="{% url "users:profile" %}">Профиль</a>
+        <a href="{% url "users:login" %}" class='login'>Войти</a>
         {% endif %}
     </p>
 

@@ -1,6 +1,8 @@
 {% extends "mysite/base.html" %}
 
 {% block content %}
+
+{% if posts %}
 {% for post in posts %}
 <h2>{{ post.name }}</h2><p>Категория - {{ post.category.name }}</p><br>
 {% if post.iamge %}
@@ -8,24 +10,24 @@
 {% endif %}
 <p>{{ post.description }}</p><br>
 
-{% if request.user.is_authenticated %}
-<p>Автор - {{ post.avtor.username }}</p>
-{% else %}
-<p>Автор - Аноним</p>
-{% endif %}
+<p>Автор - {{ post.avtor.username }} </p>
 
 <p>Время публикации: {{ post.time_created }}</p>
 
 <a href="{{ post.get_absolute_url }}"><button class="btn btn-outline-secondary">Подробнее</button></a>
-{% comment %} <form action="{% url "posts:del_post" %}">
+{% if post.avtor == request.user %}
+<form action="{% url "posts:del_post" game_id=post.id %}" method='post'>
     {% csrf_token %}
-    <button class="btn btn-outline-secondary">Удалить</button>
-</form> {% endcomment %}
+    <a href="{% url "posts:del_post" game_id=post.id %}"><button class="btn btn-outline-secondary">Удалить</button></a>
+</form>
+{% endif %}
 <p>-----------------------------------------------</p>
 
 {% endfor %}
-{% endblock content %}
+{% else %}
+<h1>
+    У вас нет опубликованных постов
+</h1>
+{% endif %}
 
-{% comment %} {% block content %}
-{% include "mysite/index.html" %}
-{% endblock content %} {% endcomment %}
+{% endblock content %}

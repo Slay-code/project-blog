@@ -6,7 +6,7 @@ from . import views
 app_name = 'mysite'
 
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('category/<slug:category_slug>/', views.category, name='category'),
-    path('game/<slug:game_slug>/', views.game_details, name='game_details'),
+    path('', views.IndexView.as_view(), name='home'),
+    path('category/<slug:category_slug>/', views.GameCategoryView.as_view(), name='category'),
+    path('game/<int:game_id>/<slug:game_slug>/', views.GameDetailsView.as_view(), name='game_details'),
 ]

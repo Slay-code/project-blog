@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 
 from mysite.models import Game, CategoryGame
@@ -8,4 +9,4 @@ class AddPostForm(forms.ModelForm):
     
     class Meta:
         model = Game
-        fields = ('name', 'slug', 'description', 'category')
+        fields = ('name', 'description', 'category')
