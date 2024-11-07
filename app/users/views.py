@@ -1,10 +1,12 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import TemplateView
 
 from .forms import UserLoginForm, UserRegistrationForm, ProfileForm
+from .models import User
+from mysite.models import Game
 
 
 def login(request):
@@ -71,3 +73,12 @@ def logout(request):
 
 class ForAnonymUser(TemplateView):
     template_name = "users/for_anonym_user.html"
+    
+    
+def profile_other_user(request, other_user):
+    context = {
+        'user': get_object_or_404(User.objects.values('username', 'email'), username=other_user),
+        'posts': Game.objects.select_related('category', 'avtor').filter(avtor__username=other_user)
+    }
+    
+    return render(request, "users/profile_other_user.html", context)

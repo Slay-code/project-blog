@@ -1,9 +1,7 @@
-from django.db.models.query import QuerySet
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import ListView, DetailView
 
-from .models import Game, CategoryGame
+from .models import Game
+from .utils import q_search
 
 # def index(request):
 #     game = Game.objects.all().select_related('category', 'avtor')
@@ -17,16 +15,18 @@ from .models import Game, CategoryGame
 
 
 class IndexView(ListView):
-    queryset = Game.objects.all().select_related('category', 'avtor')
     template_name = "mysite/index.html"
     context_object_name = "games"
     extra_context = {'title': "Главная страница"}
     
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["title"] = "Главная страница"
-    #     context['games'] = self.queryset
-    #     return context
+    def get_queryset(self):
+        query = self.request.GET.get('q', None)
+        if query:
+            game = q_search(query)
+        else:
+            game = Game.objects.all().select_related('category', 'avtor')
+            
+        return game
 
 
 # def category(request, category_slug):

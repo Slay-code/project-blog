@@ -9,7 +9,16 @@
 {% endif %}
 <p>{{ game.description }}</p><br>
 
-<p>Автор - {{ game.avtor.username }} </p>
+<p>
+    Автор - 
+    {% if game.avtor.username == request.user.username %}
+    {{ game.avtor.username }}
+    {% else %}
+    <a href="{{ game.avtor.get_absolute_url }}">
+        {{ game.avtor.username }}
+    </a>
+    {% endif %}
+</p>
 
 <p>Время публикации: {{ game.time_created }}</p>
 

@@ -1,13 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.decorators.http import require_POST
 from django.views.generic import CreateView, DeleteView, ListView
-from django.db import connection
 
 from .forms import AddPostForm
-from mysite.models import CategoryGame, Game
+from mysite.models import Game
 
 
 # @login_required(login_url="users:anon")
@@ -74,3 +71,10 @@ class MyPostsView(LoginRequiredMixin, ListView):
     
     def get_queryset(self):
         return Game.objects.filter(avtor=self.request.user).select_related('category', 'avtor')
+
+
+# <form action="https://www.google.com/search" method="get">
+#         <label for="search">Поиск:</label>
+#         <input type="text" id="search" name="q" placeholder="Введите запрос" required>
+#         <button type="submit">Поиск</button>
+#     </form>

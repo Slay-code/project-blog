@@ -11,4 +11,5 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('logout/', views.logout, name='logout'),
     path('anon/', views.ForAnonymUser.as_view(), name='anon'),
+    path('profile-other-user/<str:other_user>/', views.profile_other_user, name='other_user'),
 ]

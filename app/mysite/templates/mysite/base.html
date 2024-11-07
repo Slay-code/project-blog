@@ -16,6 +16,12 @@
     <a href="{% url "posts:add_post" %}">Добавить пост</a>
     <a href="{% url "posts:my_posts" %}">мои посты</a>
 
+    <form action="{% url "mysite:search" %}" method='get' role='search'>
+        <label for="search">Поиск по нику: '@username'</label>
+        <input type="search" placeholder="Поиск" name="q">
+        <button type="submit">Найти</button>
+    </form>
+
     <details>
         <summary><h2>Категории</h2></summary>
             <ul>
