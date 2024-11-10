@@ -64,12 +64,11 @@ class GameCategoryView(ListView):
 
 class GameDetailsView(DetailView):
     template_name = "mysite/game_details.html"
-    pk_url_kwarg = 'game_id'
     slug_url_kwarg = 'game_slug'
     context_object_name = 'game'
     
     def get_object(self, queryset=None):
-        game = Game.objects.select_related('category', 'avtor').get(id=self.kwargs[self.pk_url_kwarg], slug=self.kwargs[self.slug_url_kwarg])
+        game = Game.objects.select_related('category', 'avtor').get(slug=self.kwargs[self.slug_url_kwarg])
         return game
     
     def get_context_data(self, **kwargs):

@@ -16,17 +16,6 @@
 {% endif %}
 <p>{{ post.description }}</p>
 
-{% comment %} <p>
-    Автор - 
-    {% if post.avtor.username == request.user.username %}
-    {{ post.avtor.username }}
-    {% else %}
-    <a href="{{ post.avtor.get_absolute_url }}">
-        {{ post.avtor.username }}
-    </a>
-    {% endif %}
-</p> {% endcomment %}
-
 <p>Время публикации: {{ post.time_created }}</p>
 
 <a href="{{ post.get_absolute_url }}"><button class="btn btn-outline-secondary">Подробнее</button></a>

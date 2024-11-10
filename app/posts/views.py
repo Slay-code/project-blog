@@ -28,15 +28,15 @@ from mysite.models import Game
 #     return render(request, 'posts/add_post.html', context)
 
 
-class AddPostView(LoginRequiredMixin, CreateView):
+class AddPostView(LoginRequiredMixin, CreateView):    
     form_class = AddPostForm
     template_name = 'posts/add_post.html'
     extra_context = {'title': 'Создать пост'}
-    login_url = reverse_lazy('users:anon')
     
     def form_valid(self, form):
         avtor = form.save(commit=False)
         avtor.avtor = self.request.user
+        print(avtor.slug)
         return super().form_valid(form)
     
     def get_success_url(self) -> str:
@@ -67,7 +67,6 @@ class MyPostsView(LoginRequiredMixin, ListView):
     template_name = 'posts/my_posts.html'
     context_object_name = 'posts'
     extra_context = {'title': "Мои публикаци"}
-    login_url = 'users:login'
     
     def get_queryset(self):
         return Game.objects.filter(avtor=self.request.user).select_related('category', 'avtor')

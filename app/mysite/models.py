@@ -24,12 +24,16 @@ class Game(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse("mysite:game_details", args=[self.pk, self.slug])
+        return reverse("mysite:game_details", args=[self.slug])
     
     # полезная хуйня
     def save(self, *args, **kwargs):
+        num = 1
         if not self.slug:
             self.slug = slugify(unidecode(self.name))
+        while Game.objects.filter(slug=self.slug).exists():
+            self.slug = f"{self.slug}-{num}"
+            num += 1
         super().save(*args, **kwargs)
     
     

@@ -25,7 +25,9 @@ class UserRegistrationForm(UserCreationForm):
         
         
 class ProfileForm(forms.ModelForm):
+    username = forms.CharField()
+    email = forms.CharField()
     class Meta:
         model = User
         fields = ('username', 'email', 'status')
-        
+
